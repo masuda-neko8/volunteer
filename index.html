@@ -28,7 +28,6 @@ function getToday() {
 	return s;
 }
 
-<script>
 document.addEventListener('DOMContentLoaded', function() {
     fetch('sample.csv')
         .then(response => response.text())
@@ -62,7 +61,6 @@ function parseCSV(data) {
         tableBody.appendChild(row);
     }
 }
-</script>
 
 
 
