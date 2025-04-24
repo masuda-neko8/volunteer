@@ -10,18 +10,35 @@
   <LINK REL="STYLESHEET" TYPE="text/css" HREF="CSS2.css">
 </HEAD>
 
+<script type="text/javascript">
+function getToday() {
+	var now = new Date();
+	var year = now.getFullYear();
+	var mon = now.getMonth()+1; //１を足すこと
+	var day = now.getDate();
+	var you = now.getDay(); //曜日(0～6=日～土)
+	//曜日の選択肢
+	var yoube = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+	//月名の選択肢
+	var mone = new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+	//曜日の選択肢
+	var youbi = new Array("日","月","火","水","木","金","土");
+	//出力用
+	var s = year + "年" + mon + "月" + day + "日 (" + youbi[you] + ")";
+	return s;
+}
+
+</script>
+
 <BODY>
 
 <H1>自己紹介のページ</H1>
 <H2>(Self introduction)</H2>
 <H3>
 
+
 <script language="JavaScript">
- today = new Date();
- year = today.getFullYear();
- month = today.getMonth() + 1;
- day = today.getDate();
- document.write("今日は" + year,"年",month,"月",day,"日"+"です。"); 
+ document.write(getToday()); 
 </script>
 
 </H3>
