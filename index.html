@@ -28,15 +28,43 @@ function getToday() {
 	return s;
 }
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('sample.csv')
+        .then(response => response.text())
+        .then(data => parseCSV(data));
+});
 
-async function loadCSV() {
- const data = await fetch("sample.csv");
- const resCSV = await data.text();
- const dataCSV = resCSV.trim().split(/\r\n|\n/).map(line => line.split(','));
- const htmlData = dataCSV.map(data => `<tr><th>${data[0]}</th><td>${data[1]}</td><td>${data[2]}</td><td>${data[3]}</td><td>${data[4]}</td></tr>`).join('');
- document.getElementById('tableCSV').insertAdjacentHTML('beforeend',htmlData);
+function parseCSV(data) {
+    const lines = data.split('\n');
+    const tableHeader = document.getElementById('csvHeader');
+    const tableBody = document.getElementById('csvBody');
+
+    // ヘッダー行を設定
+    const headers = lines[0].split(',');
+    headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        tableHeader.appendChild(th);
+    });
+
+    // データ行を設定
+    for (let i = 1; i < lines.length; i++) {
+        const row = document.createElement('tr');
+        const cells = lines[i].split(',');
+
+        cells.forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            row.appendChild(td);
+        });
+
+        tableBody.appendChild(row);
+    }
 }
-loadCSV();
+</script>
+
+
 
 </script>
 
@@ -45,13 +73,18 @@ loadCSV();
 <H1>自己紹介のページ</H1>
 <H2>(Self introduction)</H2>
 <H3>
-
-
 <script language="JavaScript">
  document.write(getToday()); 
 </script>
-
 </H3>
+
+<table id="csvTable">
+    <thead>
+        <tr id="csvHeader"></tr>
+    </thead>
+    <tbody id="csvBody"></tbody>
+</table>
+
 
 <DL>
   <DT>名前</DT>
