@@ -50,6 +50,7 @@ function parseCSV(data) {
     }
 }
 
+function AAA() {
 
 var obj = document.getElementById("profile.jpg");
 var image = new Image();
@@ -59,3 +60,4 @@ var result = image.width;
 
 document.write("こんにちは");
 document.write(result);
+}
