@@ -50,13 +50,15 @@ function parseCSV(data) {
     }
 }
 
-function AAA() {
-
-var obj = document.getElementById("profile.jpg");
-var image = new Image();
-image.src = obj.src;
+function ImageExists(url){
+    var img = new Image();
+    img.src = url;
  
-var result = image.width;
-
-	return result;
+    img.onerror = function() {
+        img.src = 'cancel.png'; //代用
+    }
+    return img;
 }
+
+
+
