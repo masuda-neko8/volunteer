@@ -50,7 +50,7 @@ function parseCSV(data) {
     }
 }
 
-async function loadCSVData() {
+function loadCSVData() {
   const response = await fetch('sample.csv');
   const text = await response.text();
   const data = text.trim().split('\n')
