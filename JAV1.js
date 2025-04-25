@@ -58,6 +58,5 @@ image.src = obj.src;
  
 var result = image.width;
 
-document.write("こんにちは");
-document.write(result);
+	return result;
 }
