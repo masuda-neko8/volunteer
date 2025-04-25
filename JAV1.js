@@ -50,3 +50,12 @@ function parseCSV(data) {
     }
 }
 
+
+var obj = document.getElementById("profile.jpg");
+var image = new Image();
+image.src = obj.src;
+ 
+var result = image.width;
+
+document.write("こんにちは");
+document.write(result);
