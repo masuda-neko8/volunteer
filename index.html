@@ -2,10 +2,11 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>『増田猫っぱち』のホームページ</title>
+<title>マスダ猫っぱちのホームページ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="ここにサイト説明を入れます">
+<meta name="description" content="趣味・興味・活動・連絡先など">
 <link rel="stylesheet" href="css/style.css">
+<script src="js/top.js"></script>
 </head>
 
 <body>
@@ -16,10 +17,10 @@
 
 <header>
 
-<h1 id="logo"><a href="index.html">増田猫っぱち</a></h1>
+<h1 id="logo"><a href="index.html">『マスダ猫っぱち』のホームページ</a></h1>
 
 <address>
-TEL:0120-000-000
+<a href="mailto:dadadaneko@gmail.com">dadadaneko@gmail.com</a><br />
 </address>
 
 </header>
@@ -83,34 +84,31 @@ TEL:0120-000-000
 </main>
 
 
-<!--■■■メニュー設定（始）■■■-->
 <!--開閉ブロック-->
 <div id="menubar">
 <h3>MENU</h3>
 <nav>
 <ul>
 <div id="output_menu1"></div>
-<div id="output_menu2"></div>
-<div id="output_menu3"></div>
-<div id="output_menu4"></div>
-<div id="output_menu5"></div>
-<!--メニューの追加・削除は↑を更新-->
 </ul>
 </nav>
 </div>
 <!--/#menubar-->
 <!--メニューのスクリプト-->
-<script src="js/menu.js"></script>
-<!--メニューの内容は↑を更新-->
+
 </div>
 <!--/#contents-->
-<!--■■■メニュー設定（終）■■■-->
 
-
+<script>
+  dsipMenuListByKey(filename);
+</script>
 
 <footer>
-<small>Copyright&copy; <a href="index.html">Sample Company</a> All Rights Reserved.</small>
-<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+<script language="JavaScript">
+  document.write(getToday()); 
+</script>
+<br>
+<small>Copyright&copy; <a href="index.html">『マスダ猫っぱち』のホームページ</a> All Rights Reserved.</small>
 </footer>
 
 
