@@ -7,13 +7,15 @@ const filename = window.location.pathname.split('/').pop();
 
 // メニュー一覧の定義（ＨＴＭＬ、タイトル名）
 const data = [
-  { key: 1, html_key: "index.html", html_name: "ホーム" },
-  { key: 2, html_key: "activity.html", html_name: "趣味、活動、興味" },
-  { key: 3, html_key: "aboutme.html", html_name: "自己紹介" },
-  { key: 4, html_key: "contact", html_name: "連絡先・コンタクト" },
-  { key: 5, html_key: "other.html", html_name: "その他" },
-  { key: 6, html_key: "test.html", html_name: "甘くて高級な果物(test.html)" }
+  { key: 1, html_key: "index.html",		html_name: "ホーム",			html_ename:"Home",						html_cname:"Home" },
+  { key: 2, html_key: "activity.html",	html_name: "趣味、活動、興味",	html_ename:"Hobbies and Special Skills",html_cname:"爱好和特殊技能"},
+  { key: 3, html_key: "aboutme.html",	html_name: "自己紹介",			html_ename:"Self-introduction",			html_cname:"自我介绍" },
+  { key: 4, html_key: "contact.html",	html_name: "連絡先・コンタクト",html_ename:"Contact me",				html_cname:"Contact me" },
+  { key: 5, html_key: "myworks.html",	html_name: "オリジナル作品",	html_ename:"My works",					html_cname:"My works" },
+  { key: 6, html_key: "camp.html",	html_name: "キャンプ・アウトドア",	html_ename:"Camp/Outdoor",					html_cname:"Camp/Outdoor" },
+  { key: 7, html_key: "other.html",		html_name: "その他",			html_ename:"Others",					html_cname:"Others" }
 ];
+// 追加・削除の際は最終行のカンマ（無し）に注意！
 
 // 指定したＨＴＭＬのタイトル名
 function getNameByKey(in_key) {
@@ -34,11 +36,13 @@ function dsipMenuListByKey(in_key) {
 //    }
 //  });
 
+// aqua、aquamarine、azure、lightskyblue、lightsteelblue、cyan
+
   var ret = "";
   data.forEach(item => {
     if (item.html_key == in_key) {
 //      document.write(item.html_key," == ",in_key," ",item.html_name," aaaaaa<br>"); 
-      ret = "<li><a href=" + item.html_key + "> ⇒<b>" + item.html_name + "</b></a></li>";
+      ret = "<li><a href=" + item.html_key + "> ⇒<b><font color='lightskyblue'>" + item.html_name + "</font></b></a></li>";
     }
   else {
 //      document.write(item.html_key," <> ",in_key," ",item.html_name," bbbbbb<br>"); 
@@ -83,4 +87,29 @@ function getToday() {
 	var s = year + "年" + mon + "月" + day + "日 (" + youbi[you] + ")";
 	return s;
 }
+
+// 時刻に基づいて画像を表示する関数
+  function showHourlyImage() {
+    const now = new Date();           // 現在時刻を取得
+    let hour = now.getHours();        // 0〜23 の整数を取得
+
+    // 2桁表記（例: 03, 09, 15）
+    const hourStr = hour.toString().padStart(2, '0');
+    const filename = hourStr + '.jpg';
+
+    // 画像を作成して表示
+    const img = new Image();
+    img.src = 'images/' + filename; // 画像は同じフォルダにあると想定
+
+    img.onload = function() {
+      document.getElementById('imageContainer').appendChild(img);
+    };
+
+    img.onerror = function() {
+      // エラー時は notfound.jpg を表示
+      const fallback = new Image();
+      fallback.src = 'images/notfound.jpg';
+      document.getElementById('imageContainer').appendChild(fallback);
+    };
+  }
 
