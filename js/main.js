@@ -1,211 +1,211 @@
-
 //===============================================================
 // debounce関数
 //===============================================================
 function debounce(func, wait) {
-    var timeout;
-    return function() {
-        var context = this, args = arguments;
-        var later = function() {
-            timeout = null;
-            func.apply(context, args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
+  let timeout;
+  return function () {
+    const context = this, args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), wait);
+  };
 }
-
 
 //===============================================================
 // メニュー関連
 //===============================================================
 
-// 変数でセレクタを管理
-var $menubar = $('#menubar');
-var $menubarHdr = $('#menubar_hdr');
+const menubar = document.getElementById('menubar');
+const menubarHdr = document.getElementById('menubar_hdr');
 
-// menu
-$(window).on("load resize", debounce(function() {
-    if(window.innerWidth <= 900) {	// ここがブレイクポイント指定箇所です
-        // 小さな端末用の処理
-        $('body').addClass('small-screen').removeClass('large-screen');
-        $menubar.addClass('display-none').removeClass('display-block');
-        $menubarHdr.removeClass('display-none ham').addClass('display-block');
+// レスポンシブ対応
+function handleResize() {
+  if (window.innerWidth <= 900) {
+    document.body.classList.add('small-screen');
+    document.body.classList.remove('large-screen');
+    menubar.classList.add('display-none');
+    menubar.classList.remove('display-block');
+    menubarHdr.classList.remove('display-none', 'ham');
+    menubarHdr.classList.add('display-block');
+  } else {
+    document.body.classList.add('large-screen');
+    document.body.classList.remove('small-screen');
+    menubar.classList.add('display-block');
+    menubar.classList.remove('display-none');
+    menubarHdr.classList.remove('display-block');
+    menubarHdr.classList.add('display-none');
+
+    // ドロップダウンを閉じる
+    document.querySelectorAll('.ddmenu_parent > ul').forEach(ul => {
+      ul.style.display = 'none';
+    });
+  }
+}
+window.addEventListener('load', debounce(handleResize, 10));
+window.addEventListener('resize', debounce(handleResize, 10));
+
+// ドロップダウン設定・クリック処理など
+document.addEventListener('DOMContentLoaded', () => {
+  // ハンバーガークリック
+  menubarHdr.addEventListener('click', () => {
+    menubarHdr.classList.toggle('ham');
+    if (menubarHdr.classList.contains('ham')) {
+      menubar.classList.add('display-block');
     } else {
-        // 大きな端末用の処理
-        $('body').addClass('large-screen').removeClass('small-screen');
-        $menubar.addClass('display-block').removeClass('display-none');
-        $menubarHdr.removeClass('display-block').addClass('display-none');
-
-        // ドロップダウンメニューが開いていれば、それを閉じる
-        $('.ddmenu_parent > ul').hide();
+      menubar.classList.remove('display-block');
     }
-}, 10));
+  });
 
-$(function() {
-
-    // ハンバーガーメニューをクリックした際の処理
-    $menubarHdr.click(function() {
-        $(this).toggleClass('ham');
-        if ($(this).hasClass('ham')) {
-            $menubar.addClass('display-block');
-        } else {
-            $menubar.removeClass('display-block');
-        }
+  // アンカーリンクでメニュー閉じる
+  menubar.querySelectorAll('a[href*="#"]').forEach(anchor => {
+    anchor.addEventListener('click', () => {
+      menubar.classList.remove('display-block');
+      menubarHdr.classList.remove('ham');
     });
+  });
 
-    // アンカーリンクの場合にメニューを閉じる処理
-    $menubar.find('a[href*="#"]').click(function() {
-        $menubar.removeClass('display-block');
-        $menubarHdr.removeClass('ham');
-    });
+  // 空リンク防止
+  menubar.querySelectorAll('a[href=""]').forEach(anchor => {
+    anchor.addEventListener('click', e => e.preventDefault());
+  });
 
-    // ドロップダウンの親liタグ（空のリンクを持つaタグのデフォルト動作を防止）
-	$menubar.find('a[href=""]').click(function() {
-		return false;
-	});
-
-	// ドロップダウンメニューの処理
-    $menubar.find('li:has(ul)').addClass('ddmenu_parent');
-    $('.ddmenu_parent > a').addClass('ddmenu');
-
-// タッチ開始位置を格納する変数
-var touchStartY = 0;
-
-// タッチデバイス用
-$('.ddmenu').on('touchstart', function(e) {
-    // タッチ開始位置を記録
-    touchStartY = e.originalEvent.touches[0].clientY;
-}).on('touchend', function(e) {
-    // タッチ終了時の位置を取得
-    var touchEndY = e.originalEvent.changedTouches[0].clientY;
-    
-    // タッチ開始位置とタッチ終了位置の差分を計算
-    var touchDifference = touchStartY - touchEndY;
-    
-    // スクロール動作でない（差分が小さい）場合にのみドロップダウンを制御
-    if (Math.abs(touchDifference) < 10) { // 10px以下の移動ならタップとみなす
-        var $nextUl = $(this).next('ul');
-        if ($nextUl.is(':visible')) {
-            $nextUl.stop().hide();
-        } else {
-            $nextUl.stop().show();
-        }
-        $('.ddmenu').not(this).next('ul').hide();
-        return false; // ドロップダウンのリンクがフォローされるのを防ぐ
+  // ドロップダウン親にクラス付与
+  menubar.querySelectorAll('li').forEach(li => {
+    if (li.querySelector('ul')) {
+      li.classList.add('ddmenu_parent');
+      const anchor = li.querySelector('a');
+      if (anchor) anchor.classList.add('ddmenu');
     }
+  });
+
+  // タッチイベント対応
+  let touchStartY = 0;
+  menubar.querySelectorAll('.ddmenu').forEach(menu => {
+    menu.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+    });
+    menu.addEventListener('touchend', e => {
+      const touchEndY = e.changedTouches[0].clientY;
+      if (Math.abs(touchStartY - touchEndY) < 10) {
+        const nextUl = menu.nextElementSibling;
+        if (nextUl) {
+          const visible = nextUl.style.display === 'block';
+          document.querySelectorAll('.ddmenu_parent > ul').forEach(ul => ul.style.display = 'none');
+          nextUl.style.display = visible ? 'none' : 'block';
+          e.preventDefault();
+        }
+      }
+    });
+  });
+
+  // PCのhover対応
+  document.querySelectorAll('.ddmenu_parent').forEach(parent => {
+    parent.addEventListener('mouseenter', () => {
+      const ul = parent.querySelector('ul');
+      if (ul) ul.style.display = 'block';
+    });
+    parent.addEventListener('mouseleave', () => {
+      const ul = parent.querySelector('ul');
+      if (ul) ul.style.display = 'none';
+    });
+  });
+
+  // ページ内リンクでドロップダウンを閉じる
+  document.querySelectorAll('.ddmenu_parent ul a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelectorAll('.ddmenu_parent > ul').forEach(ul => ul.style.display = 'none');
+    });
+  });
 });
 
-    //PC用
-    $('.ddmenu_parent').hover(function() {
-        $(this).children('ul').stop().show();
-    }, function() {
-        $(this).children('ul').stop().hide();
-    });
-
-    // ドロップダウンをページ内リンクで使った場合に、ドロップダウンを閉じる
-    $('.ddmenu_parent ul a').click(function() {
-        $('.ddmenu_parent > ul').hide();
-    });
-
-});
-
+//===============================================================
+// スクロール制御（モバイルメニュー表示時）
+//===============================================================
+function toggleBodyScroll() {
+  const hdr = document.getElementById('menubar_hdr');
+  if (hdr.classList.contains('ham') && !hdr.classList.contains('display-none')) {
+    document.body.style.overflow = 'hidden';
+    document.body.style.height = '100%';
+  } else {
+    document.body.style.overflow = '';
+    document.body.style.height = '';
+  }
+}
+const observer = new MutationObserver(toggleBodyScroll);
+observer.observe(document.getElementById('menubar_hdr'), { attributes: true, attributeFilter: ['class'] });
+window.addEventListener('DOMContentLoaded', toggleBodyScroll);
 
 //===============================================================
-// 小さなメニューが開いている際のみ、body要素のスクロールを禁止。
+// スムーススクロールとページトップ
 //===============================================================
-$(function() {
-  function toggleBodyScroll() {
-    // 条件をチェック
-    if ($('#menubar_hdr').hasClass('ham') && !$('#menubar_hdr').hasClass('display-none')) {
-      // #menubar_hdr が 'ham' クラスを持ち、かつ 'display-none' クラスを持たない場合、スクロールを禁止
-      $('body').css({
-        overflow: 'hidden',
-        height: '100%'
-      });
+document.addEventListener('DOMContentLoaded', () => {
+  const pagetop = document.querySelector('.pagetop');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY >= 300) {
+      pagetop.classList.add('pagetop-show');
+      pagetop.style.display = 'block';
     } else {
-      // その他の場合、スクロールを再び可能に
-      $('body').css({
-        overflow: '',
-        height: ''
-      });
+      pagetop.classList.remove('pagetop-show');
+      pagetop.style.display = 'none';
     }
+  });
+
+  // スムーススクロール関数
+  function smoothScroll(target) {
+    const top = target.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top, behavior: 'smooth' });
   }
 
-  // 初期ロード時にチェックを実行
-  toggleBodyScroll();
+  // ページトップクリック
+  pagetop.addEventListener('click', e => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
-  // クラスが動的に変更されることを想定して、MutationObserverを使用
-  const observer = new MutationObserver(toggleBodyScroll);
-  observer.observe(document.getElementById('menubar_hdr'), { attributes: true, attributeFilter: ['class'] });
-});
-
-
-//===============================================================
-// スムーススクロール（※バージョン2024-7）※通常タイプ
-//===============================================================
-$(function() {
-    // ページトップボタンの表示・非表示
-    var scroll = $('.pagetop');
-    var scrollShow = $('.pagetop-show');
-    $(scroll).hide();
-    $(window).scroll(function() {
-        if ($(this).scrollTop() >= 300) {
-            $(scroll).fadeIn().addClass(scrollShow);
-        } else {
-            $(scroll).fadeOut().removeClass(scrollShow);
-        }
-    });
-
-    // スムーススクロール
-    function smoothScroll(target) {
-        var scroll = target.offset().top ; // スクロール位置を調整
-        $('body,html').animate({ scrollTop: scroll }, 500);
-    }
-
-    // ページトップボタンのクリックイベント
-    $('.pagetop').click(function(e) {
+  // ページ内リンククリック時
+  document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const href = anchor.getAttribute('href');
+      const id = href.split('#')[1];
+      const target = document.getElementById(id);
+      if (target) {
         e.preventDefault();
-        $('body,html').animate({ scrollTop: 0 }, 500);
+        smoothScroll(target);
+        history.pushState(null, null, '#' + id);
+      }
     });
+  });
 
-    // ページ読み込み時のハッシュ処理
-    $(window).on('load', function() {
-        var hash = location.hash;
-        if (hash) {
-            $('body,html').scrollTop(0);
-            setTimeout(function() {
-                var target = $(hash);
-                if (target.length) {
-                    smoothScroll(target);
-                }
-            }, 100);
-        }
-    });
-
-    // リンククリック時のスムーススクロール
-    $(window).on('load', function() {
-        $('a[href*="#"]').click(function(e) {
-            var href = $(this).attr('href');
-            var targetId = href.split('#')[1]; // ハッシュ部分だけを取り出す
-            var target = $('#' + targetId);
-            if (target.length) {
-                e.preventDefault();
-                smoothScroll(target);
-                history.pushState(null, null, '#' + targetId); // ハッシュをURLに追加
-            }
-        });
-    });
+  // ページロード時ハッシュ処理
+  const hash = location.hash;
+  if (hash) {
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      const target = document.querySelector(hash);
+      if (target) smoothScroll(target);
+    }, 100);
+  }
 });
-
 
 //===============================================================
 // 汎用開閉処理
 //===============================================================
-$(function() {
-	$('.openclose').next().hide();
-	$('.openclose').click(function() {
-		$(this).next().slideToggle();
-		$('.openclose').not(this).next().slideUp();
-	});
+document.addEventListener('DOMContentLoaded', () => {
+  const triggers = document.querySelectorAll('.openclose');
+  triggers.forEach(trigger => {
+    const content = trigger.nextElementSibling;
+    if (content) content.style.display = 'none';
+    trigger.addEventListener('click', () => {
+      triggers.forEach(t => {
+        if (t !== trigger) {
+          const next = t.nextElementSibling;
+          if (next) next.style.display = 'none';
+        }
+      });
+      if (content) {
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      }
+    });
+  });
 });
+
