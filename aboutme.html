@@ -1,147 +1,65 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>マスダ猫っぱちのホームページ</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="趣味・興味・活動・連絡先など">
-<link rel="stylesheet" href="css/style.css">
-<script src="js/top.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="趣味・興味・活動・連絡先など">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="top.js"></script>
+  <script>setPageTitle();</script>
 </head>
-
 <body>
-
-
+<div id="google_translate_element"></div>
 <div id="container">
+  <header>
+    <div id="home_link"></div><script>setHomeLink();</script>
+    <div id="mail_link"></div><script>setMailLink();</script>
+  </header>
 
+  <div id="contents">
+    <main>
+      <section>
+        <h2 id="output_title"></h2>
+        <script>
+          document.getElementById('output_title').textContent = getNameByKey(filename);
+        </script>
 
-<header>
+        <dl class="faq">
+          <dt>名前</dt><dd>増田（マスダ）</dd>
+          <dt>出身</dt><dd>静岡県（東京と名古屋の中間）</dd>
+          <dt>趣味</dt>
+          <dd>アニメ、社交ダンス、<a href="myworks.html">iPadイラスト制作</a>、街歩き</dd>
+          <dt>興味</dt><dd>低山ハイク、アウトドア、小旅行、レザークラフト</dd>
+          <dt>ボランティア</dt>
+          <dd>高齢者食事支援（月2回）、外国人向け日本語教室（週1回）</dd>
+          <dt>職業</dt><dd>元・ソフトウェアエンジニア（退職）</dd>
+          <dt>現住所</dt><dd>東京都足立区</dd>
+          <dt>メール</dt><dd><a href="mailto:dadadaneko@gmail.com">dadadaneko@gmail.com</a></dd>
+          <dt>このサイトのQRコード</dt>
+          <dd><img src="images/QR_github_neko8.png" width="100" height="100" alt="QRコード"> https://masuda-neko8.github.io/volunteer</dd>
+          <dt>このサイト</dt>
+          <dd>GitHub Pages による静的Webホスティング</dd>
+          <dt>Profile</dt>
+          <dd><img src="images/profile.jpg" width="200" alt="profile"></dd>
+        </dl>
+      </section>
+    </main>
 
-<h1 id="logo"><a href="index.html">『マスダ猫っぱち』のホームページ</a></h1>
+    <aside id="menubar">
+      <h3>MENU</h3>
+      <ul id="output_menu1"></ul>
+    </aside>
+  </div>
 
-<address>
-<a href="mailto:dadadaneko@gmail.com">dadadaneko@gmail.com</a><br />
-</address>
+  <script>dispMenuListByKey(filename);</script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <footer id="footer_disp"></footer>
+  <script>dispFooter();</script>
 
-</header>
+  <div class="pagetop"><a href="#">▲</a></div>
+  <div id="menubar_hdr"><div class="menu-icon"><span></span><span></span><span></span></div></div>
 
-
-<div id="contents">
-
-
-<main>
-
-<section>
-
-<div id="output_title"></div>
-
-<!--ページのタイトル表示-->
-<script language="JavaScript">
-  OwnHtml = getNameByKey(filename);
-  document.getElementById('output_title').innerHTML = '<h2>' + OwnHtml + '</h2>';
-</script>
-
-
-<!--■■■index.html以外はここを変更する。ここ以外は変更しないこと！■■■-->
-<!--■■■コンテンツの記述（始）■■■-->
-<!--■■■↓↓↓↓↓↓↓↓↓↓↓■■■-->
-
-<dl class="faq">
-
-<dt>名前</dt>
-<dd>増田（マスダ）</dd>
-
-<dt>出身</dt>
-<dd>静岡県（東京と名古屋の中間。東京から新幹線で１．５ｈくらい）</dd>
-
-<dt>趣味</dt>
-<dd>アニメ、社交ダンス（Ballroom Dance）、<a href="myworks.html">iPadでイラスト自作（Procreate）</a>、街歩き</dd>
-
-<dt>興味（趣味未満）</dt>
-<dd>低山ハイク、アウトドア（キャンプ）、小旅行、レザークラフト革細工（Leatehr craft）</dd>
-
-<dt>ボランティア活動</dt>
-<dd>高齢者向け食事提供ボランティア（月２回、４時間/回）、在日外国人向け日本語学習ボランティア（週１回、２時間/回）</dd>
-
-<dt>職業</dt>
-<dd>元・ＩＴ系ソフトウェアエンジニア（退職）Software engineer(Retired)</dd>
-
-<dt>現住所</dt>
-<dd>東京都足立区</dd>
-
-<dt>メール</dt>
-<dd><a href="mailto:dadadaneko@gmail.com">dadadaneko@gmail.com</a></dd>
-
-<dt>このサイトのＱＲコード</dt>
-<dd><img src="images/QR_github_neko8.png" width="100" height="100" alt="QRコード">https://masuda-neko8.github.io/volunteer</dd>
-
-<dt>このサイト</dt>
-<dd>GitHub Pages　※GitHubのリポジトリからの静的Webサイト・ホスティングサービスです。HTML、CSS、JavaScriptなどアップ可能。Jekyllも使えます。</dd>
-
-<dt>Profile</dt>
-<dd><img src="images/profile.jpg" width="200" alt="profile"></dd>
-
-
-</dl>
-
-<!--■■■↑↑↑↑↑↑↑↑↑↑↑■■■-->
-<!--■■■コンテンツの記述（終）■■■-->
-
-</section>
-
-</main>
-
-<!--開閉ブロック-->
-<div id="menubar">
-<h3>MENU</h3>
-<nav>
-<ul>
-<div id="output_menu1"></div>
-</ul>
-</nav>
+  <script src="js/main.js"></script>
 </div>
-<!--/#menubar-->
-<!--メニューのスクリプト-->
-
-</div>
-<!--/#contents-->
-
-<script>
-  dsipMenuListByKey(filename);
-</script>
-
-<footer>
-<script language="JavaScript">
-  document.write(getToday()); 
-</script>
-<br>
-<small>Copyright&copy; <a href="index.html">『マスダ猫っぱち』のホームページ</a> All Rights Reserved.</small>
-</footer>
-
-
-</div>
-<!--/#container-->
-
-
-<!--ページの上部へ戻るボタン-->
-<div class="pagetop"><a href="#">▲</a></div>
-
-
-<!--開閉ボタン（ハンバーガーアイコン）-->
-<div id="menubar_hdr">
-<div class="menu-icon">
-<span></span><span></span><span></span>
-</div>
-</div>
-
-
-<!--jQueryの読み込み-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
-<!--このテンプレート専用のスクリプト-->
-<script src="js/main.js"></script>
-
-
 </body>
 </html>
