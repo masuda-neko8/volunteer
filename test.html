@@ -1,0 +1,20 @@
+<!-- index.html -->
+<body>
+  <div id="header"></div>
+
+  <main>本文</main>
+
+  <div id="footer"></div>
+
+  <script>
+    // 共通パーツ読み込み
+    fetch('header.html').then(res => res.text()).then(html => {
+      document.getElementById('header').innerHTML = html;
+    });
+
+    fetch('footer.html').then(res => res.text()).then(html => {
+      document.getElementById('footer').innerHTML = html;
+    });
+  </script>
+</body>
+
