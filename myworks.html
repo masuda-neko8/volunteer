@@ -1,48 +1,31 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>マスダ猫っぱちのホームページ</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="趣味・興味・活動・連絡先など">
-<link rel="stylesheet" href="css/style.css">
-<script src="js/top.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="趣味・興味・活動・連絡先など">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="top.js"></script>
+  <script>setPageTitle();</script>
 </head>
-
 <body>
-
-
+<div id="google_translate_element"></div>
 <div id="container">
+  <header>
+    <div id="home_link"></div><script>setHomeLink();</script>
+    <div id="mail_link"></div><script>setMailLink();</script>
+  </header>
 
+  <div id="contents">
+    <main>
+      <section>
+        <!--ページのタイトル表示-->
+        <h2 id="output_title"></h2>
+        <script>
+          document.getElementById('output_title').textContent = getNameByKey(filename);
+        </script>
 
-<header>
-
-<h1 id="logo"><a href="index.html">『マスダ猫っぱち』のホームページ</a></h1>
-
-<address>
-<a href="mailto:dadadaneko@gmail.com">dadadaneko@gmail.com</a><br />
-</address>
-
-</header>
-
-
-<div id="contents">
-
-
-<main>
-
-<section>
-
-<div id="output_title"></div>
-
-<!--ページのタイトル表示-->
-<script language="JavaScript">
-  OwnHtml = getNameByKey(filename);
-  document.getElementById('output_title').innerHTML = '<h2>' + OwnHtml + '</h2>';
-</script>
-
-
-<!--■■■index.html以外はここを変更する。ここ以外は変更しないこと！■■■-->
+<!--■■■全htmlはここを変更する。ここ以外は変更しないこと！■■■-->
 <!--■■■コンテンツの記述（始）■■■-->
 <!--■■■↓↓↓↓↓↓↓↓↓↓↓■■■-->
 
@@ -55,85 +38,41 @@
 買い切りの有料アプリとしては比較的安価ながら、初心者～プロの使用に堪える使い勝手の良さが特徴です。
 </dd>
 
-<dt>都電荒川線、王子～飛鳥山付近</dt>
-<dd><img src="2025/20250521_01.jpg"></dd>
-
-<dt>吊り橋</dt>
-<dd><img src="2025/20250521_02.jpg"></dd>
-
-<dt>桜と富士山</dt>
-<dd><img src="2025/20250521_03.jpg"></dd>
-
-<dt>石庭</dt>
-<dd><img src="2025/20250521_04.jpg"></dd>
-
-<dt>日光</dt>
-<dd><img src="2025/20250521_06.jpg"></dd>
-
-<dt>箱根登山鉄道</dt>
-<dd><img src="2025/20250521_05.jpg"></dd>
-
+<dt>作品一覧</dt>
+<dd>Procreate（プロクリエイト）とiPadで作成した画像です。
+</dd>
 
 </dl>
+
+<div id="image-container"></div>
+
+<!--指定フォルダーの画像〔001～100.jpg〕を〔image-container〕に連続表示-->
+<script>
+  checkAndDisplayImages("my_works");
+</script>
 
 <!--■■■↑↑↑↑↑↑↑↑↑↑↑■■■-->
 <!--■■■コンテンツの記述（終）■■■-->
 
-</section>
+      </section>
+    </main>
 
-</main>
+    <aside id="menubar">
+      <h3>MENU</h3>
+      <ul id="output_menu1"></ul>
+    </aside>
+  </div>
 
-<!--開閉ブロック-->
-<div id="menubar">
-<h3>MENU</h3>
-<nav>
-<ul>
-<div id="output_menu1"></div>
-</ul>
-</nav>
+  <script>dispMenuListByKey(filename);</script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <footer id="footer_disp"></footer>
+  <script>dispFooter();</script>
+
+  <div class="pagetop"><a href="#">▲</a></div>
+  <div id="menubar_hdr"><div class="menu-icon"><span></span><span></span><span></span></div></div>
+
+  <script src="js/main.js"></script>
 </div>
-<!--/#menubar-->
-<!--メニューのスクリプト-->
-
-</div>
-<!--/#contents-->
-
-<script>
-  dsipMenuListByKey(filename);
-</script>
-
-<footer>
-<script language="JavaScript">
-  document.write(getToday()); 
-</script>
-<br>
-<small>Copyright&copy; <a href="index.html">『マスダ猫っぱち』のホームページ</a> All Rights Reserved.</small>
-</footer>
-
-
-</div>
-<!--/#container-->
-
-
-<!--ページの上部へ戻るボタン-->
-<div class="pagetop"><a href="#">▲</a></div>
-
-
-<!--開閉ボタン（ハンバーガーアイコン）-->
-<div id="menubar_hdr">
-<div class="menu-icon">
-<span></span><span></span><span></span>
-</div>
-</div>
-
-
-<!--jQueryの読み込み-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
-<!--このテンプレート専用のスクリプト-->
-<script src="js/main.js"></script>
-
-
 </body>
 </html>
+
