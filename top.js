@@ -12,6 +12,9 @@ const siteTitle = "『マスダ猫っぱち』のブログ";
 // メール設定
 const siteMail = "dadadaneko@gmail.com";
 
+// トップ画像に重ねるメッセージ
+const topMsg = "こんにちはマスダ猫っぱちです！";
+
 // タイトルを設定する関数
 function setPageTitle() {
   document.title = siteTitle;
@@ -185,8 +188,43 @@ function getToday() {
 	return s;
 }
 
+function showHourlyImage(text) {
+    const now = new Date();
+    let hour = now.getHours();
+    const hourStr = hour.toString().padStart(2, '0');
+    const filename = hourStr + '.jpg';
+
+    const wrapper = document.getElementById('image-Container');
+    wrapper.innerHTML = ""; // 前の画像を消す
+
+    const container = document.createElement("div");
+    container.className = "image-text-container";
+
+    const img = new Image();
+    img.src = 'images/' + filename;
+
+    const textOverlay = document.createElement("div");
+    textOverlay.className = "text-overlay";
+    textOverlay.innerText = text;
+
+    img.onload = function() {
+        container.appendChild(img);
+        container.appendChild(textOverlay);
+        wrapper.appendChild(container);
+    };
+
+    img.onerror = function() {
+        const fallback = new Image();
+        fallback.src = 'images/notfound.jpg';
+        container.appendChild(fallback);
+        textOverlay.innerText = "画像が見つかりません";
+        container.appendChild(textOverlay);
+        wrapper.appendChild(container);
+    };
+}
+
 // 時刻に基づいて画像を表示する関数
-function showHourlyImage() {
+function showHourlyImage2() {
     const now = new Date();           // 現在時刻を取得
     let hour = now.getHours();        // 0〜23 の整数を取得
 
@@ -199,14 +237,15 @@ function showHourlyImage() {
     img.src = 'images/' + filename; // 画像は同じフォルダにあると想定
 
     img.onload = function() {
-      document.getElementById('imageContainer').appendChild(img);
+      document.getElementById('image-Container').appendChild(img);
+      document.getElementById('text-over-image').innerHTML = "aaaaaa";
     };
 
     img.onerror = function() {
       // エラー時は notfound.jpg を表示
       const fallback = new Image();
       fallback.src = 'images/notfound.jpg';
-      document.getElementById('imageContainer').appendChild(fallback);
+      document.getElementById('image-Container').appendChild(fallback);
     };
 }
 

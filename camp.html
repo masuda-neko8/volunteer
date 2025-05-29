@@ -20,10 +20,12 @@
     <main>
       <section>
         <!--ページのタイトル表示-->
-        <div id="imageContainer"></div>
+        <div id="image-Container" class="image-wrapper">
+        <!-- JavaScriptで画像とテキストがここに挿入される -->
+        </div>
         <div id="output_title"></div>
         <script>
-          if (filename === "index.html") { showHourlyImage(); }
+          if (filename === "index.html") { showHourlyImage(topMsg); }
           dispNameByKey(filename);
         </script>
 
@@ -35,7 +37,6 @@
 <!--■■■全htmlはここを変更する。ここ以外は変更しないこと！■■■-->
 <!--■■■コンテンツの記述（始）■■■-->
 <!--■■■↓↓↓↓↓↓↓↓↓↓↓■■■-->
-
 
 <h3>ウルトラライト</h3>
 

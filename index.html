@@ -20,10 +20,12 @@
     <main>
       <section>
         <!--ページのタイトル表示-->
-        <div id="imageContainer"></div>
+        <div id="image-Container" class="image-wrapper">
+        <!-- JavaScriptで画像とテキストがここに挿入される -->
+        </div>
         <div id="output_title"></div>
         <script>
-          if (filename === "index.html") { showHourlyImage(); }
+          if (filename === "index.html") { showHourlyImage(topMsg); }
           dispNameByKey(filename);
         </script>
 
@@ -38,6 +40,8 @@
 
 <br>
 
+<!-- index.htmlのみ、コンテンツ内は<h2>から始める。 -->
+<!-- 他のhtmlは<h2>はページタイトルの為、<h3>から始 -->
 <h2>お知らせ</h2>
 
 <dl class="new">
