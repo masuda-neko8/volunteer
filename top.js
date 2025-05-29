@@ -63,34 +63,40 @@ async function checkAndDisplayImages(folderName) {
   container.style.flexDirection = "column";
   container.style.alignItems = "flex-start"; // 任意（左揃え）
 
-  for (let i = 1; i <= 100; i++) {
-    const fileName = String(i).padStart(3, '0') + ".jpg";
-    const imagePath = `${folderName}/${fileName}`;
+for (let i = 1; i <= 100; i++) {
+  const fileName = String(i).padStart(3, '0') + ".jpg";
+  const imagePath = `${folderName}/${fileName}`;
 
-    const img = new Image();
-    img.src = imagePath;
-    img.alt = fileName;
-    img.style.margin = "10px";
-    img.style.maxWidth = "800px";
+  const img = new Image();
+  img.src = imagePath;
+  img.alt = fileName;
+  img.style.margin = "10px";
+  img.style.maxWidth = "500px";
 
-    // Promiseを使って画像の読み込み結果を確認
-    const loaded = await new Promise((resolve) => {
-      img.onload = () => resolve(true);
-      img.onerror = () => resolve(false);
-    });
+  // Promiseを使って画像の読み込み結果を確認
+  const loaded = await new Promise((resolve) => {
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+  });
 
-    if (!loaded) {
-      console.log(`画像が存在しません: ${imagePath}`);
-      break;
-    }
+  if (!loaded) {
+    console.log(`画像が存在しません: ${imagePath}`);
+    break;
+  }
 
-    container.appendChild(img);
-    
-    // <hr> を追加
-    const hr = document.createElement("hr");
-    hr.style.width = "100%"; // 任意：横幅を100%
-    hr.style.margin = "5px 0"; // 任意：上下の余白
-    container.appendChild(hr);
+  // <a>タグで画像を囲んでリンクを付ける
+  const link = document.createElement("a");
+  link.href = imagePath;
+  link.target = "_blank"; // 新しいタブで開く
+  link.appendChild(img);
+
+  container.appendChild(link);
+
+  // <hr> を追加
+  const hr = document.createElement("hr");
+  hr.style.width = "100%";
+  hr.style.margin = "5px 0";
+  container.appendChild(hr);
   }
 }
 
