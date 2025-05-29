@@ -3,7 +3,8 @@
 //===============================================================
 
 // 実行しているＨＴＭＬのファイル名〔.html除〕取得
-const filename = location.pathname.split('/').pop();
+const filename = location.pathname.split('/').pop() || "index.html";
+//const filename = location.pathname.split('/').pop();
 //const filename = location.pathname.split('/').pop().replace('.html', '');
 
 // タイトル設定
