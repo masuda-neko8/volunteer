@@ -1,7 +1,5 @@
 @charset "utf-8";
 
-
-
 /*Google Fontsの読み込み
 ---------------------------------------------------------------------------*/
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700&display=swap');
@@ -33,6 +31,25 @@
 	--global-space: 3vw;				/*サイト内の余白の一括管理用。画面幅100%＝100vwです。*/
 
 	--border-color1: rgba(255,255,255,0.3) !important;	/*Q19用*/
+}
+
+
+.image-text-container {
+  position: relative;
+  display: inline-block;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px #000;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 5px 10px;
+  border-radius: 6px;
 }
 
 
@@ -90,6 +107,7 @@ table {border-collapse:collapse;}
 
 /*画像全般の設定*/
 img {border: none;max-width: 100%;height: auto;vertical-align: middle;}
+//img {border: none;max-width: 100%;height: auto;vertical-align: middle; filter:sepia(75%);}
 
 /*videoタグ*/
 video {max-width: 100%;}
@@ -364,17 +382,20 @@ footer {
 
 /*質問*/
 .faq dt {
+	color: #e6e6e6;	/* 20250430追加（不具合の場合、削除！）・『Q』の文字色・灰*/
 	position: relative;
 	padding-left: 3rem; 	/*下の「回答」と数字部分を合わせる*/
 	border: 1px solid var(--primary-inverse-color);	/*枠線の幅、線種、varは色の事でcss冒頭で指定しているprimary-inverse-colorを読み込みます*/
 	padding-right: 1rem;	/*ボックス内の右側の余白*/
 	margin-bottom: 1rem;	/*ボックスの外（下）に空けるスペース*/
 	border-radius: 5px;		/*角を少しだけ丸くする*/
+	background-color: #004C59;	/* 20250430追加（不具合の場合、削除！）・『Q』の背景色・紺*/
+
 }
 
 /*「Q」のテキスト*/
 .faq dt::before {
-	content: "Q.";			/*このテキストを表示させます*/
+	content: "※";			/*このテキストを表示させます*/
 	position: absolute;
 	left: 0;
 	top: 0;
