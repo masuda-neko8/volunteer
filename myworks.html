@@ -20,10 +20,17 @@
     <main>
       <section>
         <!--ページのタイトル表示-->
-        <h2 id="output_title"></h2>
+        <div id="imageContainer"></div>
+        <div id="output_title"></div>
         <script>
-          document.getElementById('output_title').textContent = getNameByKey(filename);
+          if (filename === "index.html") { showHourlyImage(); }
+          dispNameByKey(filename);
         </script>
+
+        <!-- メニュー一覧（横）表示 -->
+        <div id="menu_top"></div>
+        <script>dispMenu(filename,"menu_top");</script>
+
 
 <!--■■■全htmlはここを変更する。ここ以外は変更しないこと！■■■-->
 <!--■■■コンテンツの記述（始）■■■-->
@@ -53,6 +60,11 @@
 
 <!--■■■↑↑↑↑↑↑↑↑↑↑↑■■■-->
 <!--■■■コンテンツの記述（終）■■■-->
+
+
+      <!-- メニュー一覧（横）表示 -->
+      <div id="menu_bottom"></div>
+      <script>dispMenu(filename,"menu_bottom");</script>
 
       </section>
     </main>

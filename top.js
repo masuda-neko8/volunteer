@@ -91,10 +91,53 @@ async function checkAndDisplayImages(folderName) {
   }
 }
 
-// 指定したＨＴＭＬのタイトル名
+// 指定したＨＴＭＬのタイトル名を帰す
 function getNameByKey(in_key) {
+  if (in_key === "index.html") {
+    return null;
+  }
   const item = data.find(obj => obj.html_key === in_key);
   return item ? item.html_name : null;
+}
+
+// 指定したＨＴＭＬのタイトル名を表示
+function dispNameByKey(in_key) {
+  if (in_key === "index.html") {
+    return null;
+  }
+  document.getElementById('output_title').innerHTML = "<h2>" + getNameByKey(in_key) + "</h2>";
+  return null;
+}
+
+// メニュー一覧表示【横並び】
+function dispMenu(in_key,place) {
+  const menuList = document.getElementById(place);
+//  const menuList = document.getElementById("menu_list");
+  menuList.innerHTML = ""; // 初期化
+
+  // 横並びにするためのスタイル
+  menuList.style.display = "flex";
+  menuList.style.gap = "10px";
+  menuList.style.flexWrap = "wrap";
+
+  data.forEach(item => {
+    const link = document.createElement("a");
+    link.href = item.html_key;
+    link.textContent = "[" + item.html_name + "]";
+
+    // 共通のスタイル
+    link.style.textDecoration = "none";
+    link.style.color = "#fff";
+
+    // 選択中ページなら太字にする
+    if (item.html_key === in_key) {
+      link.style.fontWeight = "bold";
+      link.style.color = "black";
+      link.style.backgroundColor = "lightskyblue";
+    }
+
+    menuList.appendChild(link);
+  });
 }
 
 //メニュー一覧を（output_menu1）に表示する。
