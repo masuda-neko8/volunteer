@@ -213,6 +213,7 @@ function showHourlyImage(text) {
     const textOverlay = document.createElement("div");
     textOverlay.className = "text-overlay";
     textOverlay.innerText = text;
+    textOverlay.style.fontSize = "10px";
 
     img.onload = function() {
         container.appendChild(img);
@@ -230,29 +231,4 @@ function showHourlyImage(text) {
     };
 }
 
-// 時刻に基づいて画像を表示する関数
-function showHourlyImage2() {
-    const now = new Date();           // 現在時刻を取得
-    let hour = now.getHours();        // 0〜23 の整数を取得
-
-    // 2桁表記（例: 03, 09, 15）
-    const hourStr = hour.toString().padStart(2, '0');
-    const filename = hourStr + '.jpg';
-
-    // 画像を作成して表示
-    const img = new Image();
-    img.src = 'images/' + filename; // 画像は同じフォルダにあると想定
-
-    img.onload = function() {
-      document.getElementById('image-Container').appendChild(img);
-      document.getElementById('text-over-image').innerHTML = "aaaaaa";
-    };
-
-    img.onerror = function() {
-      // エラー時は notfound.jpg を表示
-      const fallback = new Image();
-      fallback.src = 'images/notfound.jpg';
-      document.getElementById('image-Container').appendChild(fallback);
-    };
-}
 
